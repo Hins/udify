@@ -14,6 +14,7 @@ import torch.nn.functional as F
 from pytorch_pretrained_bert.tokenization import BertTokenizer
 from pytorch_pretrained_bert.modeling import BertModel, BertConfig
 
+from allennlp.common import Params
 from allennlp.common.util import pad_sequence_to_length
 from allennlp.modules.token_embedders import TokenEmbedder
 from allennlp.data.vocabulary import Vocabulary
@@ -252,7 +253,6 @@ class WordpieceIndexer(TokenIndexer[int]):
     def get_padding_lengths(self, token: int) -> Dict[str, int]:  # pylint: disable=unused-argument
         return {}
 
-    @overrides
     def as_padded_tensor(
             self,
             tokens: Dict[str, List[int]],
@@ -334,6 +334,11 @@ class PretrainedBertIndexer(WordpieceIndexer):
                          end_tokens=["[SEP]"],
                          separator_token="[SEP]",
                          truncate_long_sequences=truncate_long_sequences)
+
+    @classmethod
+    def from_params(cls, params: Params) -> 'PretrainedBertIndexer':  # type: ignore
+        choice = params.pop_choice('type', cls.list_available(), default_to_first_choice=True)
+        return cls.by_name(choice).from_params(params)
 
 
 def _get_token_type_ids(wordpiece_ids: List[int],

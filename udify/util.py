@@ -97,6 +97,7 @@ def get_ud_treebank_files(dataset_dir: str, treebanks: List[str] = None) -> Dict
     treebanks = os.listdir(dataset_dir) if not treebanks else treebanks
     for treebank in treebanks:
         treebank_path = os.path.join(dataset_dir, treebank)
+        print("treebank_path is ", treebank_path)
         conllu_files = [file for file in sorted(os.listdir(treebank_path)) if file.endswith(".conllu")]
 
         train_file = [file for file in conllu_files if file.endswith("train.conllu")]

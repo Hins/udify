@@ -8,13 +8,13 @@ from overrides import overrides
 from udify.dataset_readers.parser import parse_line, DEFAULT_FIELDS, process_multiword_tokens
 from conllu import parse_incr
 
-from allennlp.common.file_utils import cached_path
 from allennlp.data.dataset_readers.dataset_reader import DatasetReader
 from allennlp.data.fields import Field, TextField, SequenceLabelField, MetadataField
 from allennlp.data.instance import Instance
 from allennlp.data.token_indexers import SingleIdTokenIndexer, TokenIndexer
 from allennlp.data.tokenizers.word_splitter import SpacyWordSplitter, WordSplitter
 from allennlp.data.tokenizers import Token
+from allennlp.common.file_utils import cached_path
 
 from udify.dataset_readers.lemma_edit import gen_lemma_rule
 
